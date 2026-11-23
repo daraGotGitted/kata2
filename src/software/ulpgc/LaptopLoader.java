@@ -1,6 +1,8 @@
 package software.ulpgc;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
@@ -9,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LaptopLoader {
-    InputStream retrieveStream();
+    InputStream retrieveStream() throws URISyntaxException, IOException;
 
-    default List<Laptop> getAllLaptop() {
+    default List<Laptop> getAllLaptop() throws URISyntaxException, IOException {
         InputStream is = retrieveStream();
         try (Reader reader = new InputStreamReader(is)) {
             return reader.readAllLines().stream().skip(1).map((s) -> {
@@ -28,7 +30,7 @@ public interface LaptopLoader {
         }
     }
 
-    default Laptop getLaptop(int id) {
+    default Laptop getLaptop(int id) throws URISyntaxException, IOException {
         if(id < 0) throw new IndexOutOfBoundsException();
         InputStream is = retrieveStream();
         try (Reader reader = new InputStreamReader(is)) {
@@ -44,19 +46,19 @@ public interface LaptopLoader {
         }
     }
 
-    default String getManufacturer(int id) {
+    default String getManufacturer(int id) throws URISyntaxException, IOException {
         return getLaptop(id).manufacturer;
     }
 
-    default String getModel(int id) {
+    default String getModel(int id) throws URISyntaxException, IOException {
         return getLaptop(id).model_name;
     }
 
-    default float getPrice(int id) {
+    default float getPrice(int id) throws URISyntaxException, IOException {
         return getLaptop(id).price;
     }
 
-    default float getPriceMean() {
+    default float getPriceMean() throws URISyntaxException, IOException {
         InputStream is = retrieveStream();
         try(Reader reader = new InputStreamReader(is)) {
             double[] priceRead = reader.readAllLines().stream().skip(1)
@@ -68,7 +70,7 @@ public interface LaptopLoader {
         }
     }
 
-    default int exportData(String path) {
+    default int exportData(String path) throws URISyntaxException {
         File f = new File(path);
         try {
             if(f.createNewFile()) {

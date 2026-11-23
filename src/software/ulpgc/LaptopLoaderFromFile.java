@@ -9,10 +9,8 @@ public class LaptopLoaderFromFile implements LaptopLoader {
     public String path;
     public LaptopLoaderFromFile(String path) { this.path = path; }
 
-    public InputStream retrieveStream() {
+    public InputStream retrieveStream() throws FileNotFoundException {
         File f = new File(path);
-        try { return new FileInputStream(f); } catch(FileNotFoundException e) { System.err.println("Couldn't find file: " + this.path); }
-        return null;
+        return new FileInputStream(f);
     }
-
 }
