@@ -87,4 +87,9 @@ public interface LaptopLoader {
 
         return 0;
     }
+
+    default byte[] exportByteAraay() throws URISyntaxException, IOException{
+        InputStream is = retrieveStream();
+
+    }
 }
