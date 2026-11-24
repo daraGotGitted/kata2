@@ -30,6 +30,7 @@ Sin dependencias externas
 ## Enlace al vídeo explicativo de máximo 7 minutos
 ## Descripción breve de cómo se repitió la kata y qué variación pequeña se introdujo, si la hubo
 Como primera repetición de la Kata, se ha optado por una forma alternativa de tratar errores a la inicialmente propuesta. De esta forma se consigue un código más limpio,
+
 Como segunda repetición de la Kata, se añade el método default rawData que obtiene un ByteArrayOutputStream y devuelve una String con los datos crudos leídos.
 
 ## Evidencias de verificación o pruebas realizadas
