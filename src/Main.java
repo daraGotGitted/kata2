@@ -23,5 +23,7 @@ public class Main {
 
         fileLoader.exportData("./file_test.txt");
         urlLoader.exportData("./url_test.txt");
+
+        //System.out.println(fileLoader.rawData());
     }
 }

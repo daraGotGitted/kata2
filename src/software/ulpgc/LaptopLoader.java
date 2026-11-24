@@ -13,6 +13,10 @@ import java.util.Optional;
 public interface LaptopLoader {
     InputStream retrieveStream() throws URISyntaxException, IOException;
 
+    private byte[] retrieveByteArray() throws URISyntaxException, IOException {
+        return retrieveStream().readAllBytes();
+    }
+
     default List<Laptop> getAllLaptop() throws URISyntaxException, IOException {
         InputStream is = retrieveStream();
         try (Reader reader = new InputStreamReader(is)) {
@@ -86,5 +90,12 @@ public interface LaptopLoader {
         }
 
         return 0;
+    }
+
+    default String rawData() throws URISyntaxException, IOException {
+        byte[] bs = retrieveByteArray();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        baos.writeBytes(bs);
+        return baos.toString(StandardCharsets.UTF_8);
     }
 }
